@@ -1,0 +1,20 @@
+#!/usr/local/bin/zsh
+/usr/local/bin/ezjail-admin list | \
+    /usr/bin/grep -v STA | \
+    /usr/bin/grep -v \\-\\- | \
+    /usr/bin/perl -p -i -e 's/\h+/\t/sg' | \
+    /usr/bin/cut -f 3,4 | \
+    /usr/bin/sort
+# End ezjail
+IP=(`/sbin/ifconfig | \
+    /usr/bin/grep inet | \
+    /usr/bin/grep -v inet6 | \
+    /usr/bin/cut -f 2 | \
+    /usr/bin/cut -f 2 -d ' '`)
+# End ifconfig
+EZJAIL_IPS=(`/usr/local/bin/ezjail-admin list | \
+    /usr/bin/grep -v STA | \
+    /usr/bin/grep -v \\\-\\\- | \
+    /usr/bin/perl -p -i -e 's/\h+/\t/sg' | \
+    /usr/bin/cut -f 3 | \
+    /usr/bin/sort`)

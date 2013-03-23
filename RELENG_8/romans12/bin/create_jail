@@ -1,0 +1,16 @@
+#!/usr/local/bin/bash
+
+if [ -z $1 || -z $2 ]; then
+    echo "Please Enter a Jail Name and It's IP";
+    exit;
+fi;
+/usr/local/bin/ezjail-admin create -f default $1 $2;
+echo "/home/jnbek/dotfiles /home/jails/$1/root/dotfiles nullfs rw 0   0" >> /etc/fstab.$1
+mkdir -v /home/jails/$1/root/dotfiles
+echo "Do you wish to start this jail: $1?"
+select yn in "Yes" "No"; do
+    case $yn in
+        Yes ) /usr/local/bin/ezjail-admin start $1; break;;
+        No )  exit;;
+    esac
+done

@@ -1,0 +1,35 @@
+#!/usr/local/bin/bash
+if [ -z $1 ]; then
+    echo "Enter a jail to remove:"
+    /usr/local/bin/ezjail-admin list;
+    exit 255;
+fi;
+case $1 in
+    httpd )     echo "Nope: $1 is a protected jail!!"; exit;;
+    ratsnest )  echo "Nope: $1 is a protected jail!!"; exit;;
+    ircd )      echo "Nope: $1 is a protected jail!!"; exit;;
+    databases ) echo "Nope: $1 is a protected jail!!"; exit;;
+    gitit )     echo "Nope: $1 is a protected jail!!"; exit;;
+    subsonic )  echo "Nope: $1 is a protected jail!!"; exit;;
+    qtwebkit )  echo "Nope: $1 is a protected jail!!"; exit;;
+esac;
+function do_delete() {
+   echo "/usr/local/bin/ezjail-admin stop $1";
+   /usr/local/bin/ezjail-admin stop $1;
+   echo "/usr/local/bin/ezjail-admin delete $1";
+   /usr/local/bin/ezjail-admin delete $1;
+   echo "/bin/chflags 0 /home/jails/$1/var/empty";
+   /bin/chflags 0 /home/jails/$1/var/empty;
+   echo "/bin/rm -rf /home/jails/$1/";
+   /bin/rm -rf /home/jails/$1/;
+}
+
+echo "Do you wish to DELETE THIS JAIL $1 ?"
+echo "This can not be undone!!!";
+select yn in "Yes" "No"; do
+    case $yn in
+    Yes ) do_delete $1; break;;
+    No )  exit;;
+    * )   echo "Please enter only Yes [1] or No [2]";
+    esac;
+done;

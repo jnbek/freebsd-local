@@ -1,0 +1,5 @@
+#!/bin/sh
+date
+/sbin/umount -a -t ufs
+/sbin/fsck -fy /dev/ad0s1a	/dev/ad0s1d	/dev/da0s1d /dev/da1s1d /dev/da2s1a 
+date
