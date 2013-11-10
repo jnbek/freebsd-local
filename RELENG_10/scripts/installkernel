@@ -1,0 +1,18 @@
+#!/bin/sh
+
+echo "Kernel Installation Begun: `date +%c`";
+if [ "$#" -eq 0 ]; then
+    KERNCONF=`uname -i`;
+fi;
+if [ "$#" -gt 0 ]; then
+    KERNCONF=$1;
+fi;
+if [ "$KERNCONF" == "GENERIC" ]; then
+    echo "Please choose the custom kernel";
+    echo "Kernel Installation Failed: `date +%c`";
+    exit 255;
+fi;
+cd /usr/src
+make installkernel KERNCONF=$KERNCONF;
+
+echo "Kernel Installation Ended: `date +%c`";

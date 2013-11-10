@@ -1,0 +1,10 @@
+#!/bin/sh
+# Run after the FreeBSD make world and kernel build/installs are done in makeworld.sh
+# Best if run in Single User Mode.
+KERNCONF='NAS_10'
+cd /usr/src
+$HOME/bin/installkernel
+make installworld
+cd /usr/src/usr.sbin/mergemaster
+./mergemaster.sh -Ui
+fastboot

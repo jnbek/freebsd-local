@@ -1,0 +1,22 @@
+include GENERIC
+ident NAS_10
+
+device        if_bridge
+device        carp
+device        epair
+
+options       VIMAGE
+options       NETGRAPH
+options       NETGRAPH_ETHER
+options       NETGRAPH_BRIDGE
+options       NETGRAPH_EIFACE
+options       NETGRAPH_SOCKET
+
+options       BOOTVERBOSE=1
+
+#options       COMPAT_LINUX
+options       COMPAT_LINUX32
+options       LINPROCFS
+options       LINSYSFS
+
+nooptions SCTP

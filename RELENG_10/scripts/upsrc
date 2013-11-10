@@ -1,0 +1,15 @@
+#!/bin/sh
+RELENG="stable";
+VERSION="10";
+#SVNHOST="svn.freebsd.org"
+SVNHOST="svn0.us-west.freebsd.org"
+echo "Started: "
+date +%c;
+if [ -e "/usr/src/.svn" ]; then
+    cd /usr/src/;
+    /usr/local/bin/svn update;
+else
+    /usr/local/bin/svn checkout svn://$SVNHOST/base/$RELENG/$VERSION /usr/src;
+fi;
+echo "Finished: "
+date +%c;
