@@ -24,7 +24,7 @@ fi
 /usr/local/sbin/portinstall -Cfv -l $HOME/log/firstboot-`date +%F_%B` subversion git
 if [ $? -ne 0 ]; then
     echo "Subversion, Git or Dependency Failed To Build";
-    echo "FirstBoot Script failed: `date +%c`
+    echo "FirstBoot Script failed: `date +%c"
     exit 255;
 fi
 echo "FirstBoot Script failed: `date +%c`
