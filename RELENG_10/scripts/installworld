@@ -7,4 +7,5 @@ $HOME/bin/installkernel
 make installworld
 cd /usr/src/usr.sbin/mergemaster
 ./mergemaster.sh -Ui
+echo "Install World Completed: Rebooting"
 fastboot
