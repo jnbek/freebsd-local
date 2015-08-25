@@ -1,19 +1,26 @@
 #!/bin/sh
+# Builds the FreeBSD Kernel
 
-echo "Kernel Build Begun: `date +%c`";
-if [ "$#" -eq 0 ]; then
-    KERNCONF=`uname -i`;
-fi;
+echo "Kernel Build Begun: $(date +%c)";
+
+KERNCONF=$(uname -i);
+
 if [ "$#" -gt 0 ]; then
     KERNCONF=$1;
 fi;
+
 if [ "$KERNCONF" == "GENERIC" ]; then
     echo "Please choose the custom kernel";
-    echo "Kernel Build Ended: `date +%c`";
-    exit 255;
+    echo "Kernel Build Ended: $(date +%c)";
+    exit 13;
 fi;
 cd /usr/src
 echo $KERNCONF;
 make buildkernel KERNCONF=$KERNCONF;
 
-echo "Kernel Build Ended: `date +%c`";
+if [ $? -ne 0 ]; then
+    echo "make buildkernel KERNCONF=$KERNCONF failed"
+    exit 1;
+fi; 
+
+echo "Kernel Build Ended: $(date +%c)";

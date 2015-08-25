@@ -1,16 +1,30 @@
 #!/bin/sh
 # Performs a Handbook make world:
 # http://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/makeworld.html
-KERNCONF='NAS_10'
+
+echo "Beginning the make world process: $(date +%c)"
 CPU=$(sysctl -n hw.ncpu); 
 JOBS=$(( $CPU + 1 ));
 
 cd /usr/src/usr.sbin/mergemaster
 /bin/sh mergemaster.sh -p
 adjkerntz -i
+
 cd /usr/src
 make -j${JOBS} buildworld
+
+if [ $? -ne 0 ]; then
+    echo "Failed Compiling the World"
+    exit 1;
+fi; 
+
 $HOME/bin/makekernel
+
+if [ $? -ne 0 ]; then
+    echo "Failed installing the Kernel"
+    exit 1;
+fi; 
+
 echo "Build World, and Kernel Rebuilds Complete"
-echo "Boot into Single User Mode Now, and run $HOME/bin/installworld.sh to complete upgrade"
+echo "Maybe boot into Single User Mode Now, and run $HOME/bin/installworld.sh to complete upgrade"
 # shutdown now

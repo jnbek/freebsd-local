@@ -1,18 +1,26 @@
 #!/bin/sh
+# Installs the kernel built with make buildkernel
 
-echo "Kernel Installation Begun: `date +%c`";
-if [ "$#" -eq 0 ]; then
-    KERNCONF=`uname -i`;
-fi;
+echo "Kernel Installation Begun: $(date +%c)";
+
+KERNCONF=$(uname -i);
+
 if [ "$#" -gt 0 ]; then
     KERNCONF=$1;
 fi;
+
 if [ "$KERNCONF" == "GENERIC" ]; then
     echo "Please choose the custom kernel";
     echo "Kernel Installation Failed: `date +%c`";
-    exit 255;
+    exit 13;
 fi;
+
 cd /usr/src
 make installkernel KERNCONF=$KERNCONF;
 
-echo "Kernel Installation Ended: `date +%c`";
+if [ $? -ne 0 ]; then
+    echo "make installkernel KERNCONF=$KERNCONF failed"
+    exit 1;
+fi; 
+
+echo "Kernel Installation Ended: $(date +%c)";
