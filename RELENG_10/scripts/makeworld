@@ -21,7 +21,7 @@ fi;
 $HOME/bin/makekernel
 
 if [ $? -ne 0 ]; then
-    echo "Failed installing the Kernel"
+    echo "Failed Compiling the Kernel"
     exit 1;
 fi; 
 
