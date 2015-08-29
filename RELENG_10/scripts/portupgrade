@@ -1,0 +1,2 @@
+#!/bin/sh
+/usr/local/sbin/portmaster -avgfD --force-config
