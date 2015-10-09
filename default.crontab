@@ -1,0 +1,4 @@
+#01 06 * * * /usr/sbin/ntpdate -s time.xmission.com
+00 23 * * * /root/bin/upsrc
+00 05 * * * /root/bin/upports
+00 00 * * * [ -f "/usr/local/etc/rc.d/atop" ] && grep -q atop_enable /etc/rc.conf && /usr/local/etc/rc.d/atop rotate
