@@ -1,0 +1,9 @@
+#!/bin/sh
+VERSION=10;
+CBSD=$(which cbsd);
+START=$(date +%c);
+Echo "Updating CBSD Source tree to ${VERSION}-stable"
+$CBSD srcup ver=$VERSION stable=1;
+echo "Done updating CBSD Src";
+echo "Started: $START"
+echo "Finshed: $(date +%c)"

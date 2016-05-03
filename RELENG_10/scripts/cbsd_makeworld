@@ -1,0 +1,21 @@
+#!/bin/sh
+VERSION=10;
+CPU=$(sysctl -n hw.ncpu); 
+JOBS=$(( $CPU + 1 ));
+CBSD=$(which cbsd);
+START=$(date +%c);
+echo "Building the CBSD Base"
+echo $START;
+$CBSD buildworld clean=1 maxjobs=$JOBS;
+if [ $? -ne 0 ]; then
+    echo "Failed Compiling the CBSD Base";
+    exit 1;
+fi;
+echo "Installing the CBSD Base";
+$CBSD installworld
+if [ $? -ne 0 ]; then
+    echo "Failed Installing the CBSD Base";
+    exit 1;
+fi;
+echo "Started: $START";
+echo "Finshed: $(date +%c)";
