@@ -1,10 +1,9 @@
 #!/bin/sh
 CBSD=$(which cbsd);
 START=$(date +%c);
-
+NOCOLOR=1
 echo "Backing up the Jails"
 echo $START;
-
 for JAIL in $(cbsd jls | awk ' $1 !~ /JNAME/ { print $1 }');
     do echo $JAIL;
     $CBSD jsnapshot mode=create jname=${JAIL} snapname=${JAIL}_before_update;
