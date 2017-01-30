@@ -7,7 +7,7 @@ echo $START;
 
 for JAIL in $(cbsd jls | awk ' $1 !~ /JNAME/ { print $1 }');
     do echo $JAIL;
-    echo $CBSD jsnapshot mode=create jname=${JAIL} snapname=${JAIL}_before_update;
+    $CBSD jsnapshot mode=create jname=${JAIL} snapname=${JAIL}_before_update;
     echo "Snapshot for ${JAIL} completed: ";
     date +%c;
 done;
