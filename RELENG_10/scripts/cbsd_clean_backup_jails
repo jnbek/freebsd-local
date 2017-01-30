@@ -1,0 +1,13 @@
+#!/bin/sh
+CBSD=$(which cbsd);
+START=$(date +%c);
+
+echo "Cleaning up the Jail Backups"
+echo $START;
+
+for JAIL in $(cbsd jls | awk ' $1 !~ /JNAME/ { print $1 }');
+    do echo $JAIL;
+    $CBSD jsnapshot mode=destroy jname=${JAIL} snapname=${JAIL}_before_update;
+    echo "Snapshot for ${JAIL} deleted: ";
+    date +%c;
+done;
