@@ -1,0 +1,19 @@
+#!/bin/sh
+
+CBSD=$(which cbsd);
+ARCH=$(uname -m);
+START=$(date +%c);
+VERSION=10;
+CBSD_BASE=/cbsd/jails/basejail/base_${ARCH}_${ARCH}_${VERSION}
+
+echo "Installing the CBSD Base from /usr/src/"
+echo $START;
+make -C /usr/src installworld DESTDIR=${CBSD_BASE}
+if [ $? -ne 0 ]; then
+    echo "Failed Installing the CBSD Base";
+    exit 1;
+fi;
+# Is this needed?
+#$CBSD cbsd preparebase dst=${CBSD_BASE}
+echo "Started: $START";
+echo "Finshed: $(date +%c)";
