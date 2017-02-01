@@ -6,7 +6,7 @@ NOCOLOR=1
 echo "Cleaning up the Jail Backups"
 echo $START;
 
-for JAIL in $(cbsd jls | awk ' $1 !~ /JNAME/ { print $1 }');
+for JAIL in $(cbsd jorder);
     do echo $JAIL;
     $CBSD jsnapshot mode=destroy jname=${JAIL} snapname=${JAIL}_before_update;
     echo "Snapshot for ${JAIL} deleted: ";
