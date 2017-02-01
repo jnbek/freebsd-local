@@ -4,9 +4,11 @@ START=$(date +%c);
 NOCOLOR=1
 echo "Backing up the Jails"
 echo $START;
-for JAIL in $(cbsd jls | awk ' $1 !~ /JNAME/ { print $1 }');
+
+for JAIL in $(cbsd jorder);
     do echo $JAIL;
-    $CBSD jsnapshot mode=create jname=${JAIL} snapname=${JAIL}_before_update;
+    #$CBSD jsnapshot mode=create jname=${JAIL} snapname=${JAIL}_before_update;
+    $CBSD jexport $JAIL imgname=${JAIL}_$( date +%c | sed -e's/ /_/g' );
     echo "Snapshot for ${JAIL} completed: ";
     date +%c;
 done;
